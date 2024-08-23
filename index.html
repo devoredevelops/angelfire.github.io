@@ -1,0 +1,196 @@
+import React, { useState } from 'react';
+import { Moon, Sun, Send, Cat, Flame } from 'lucide-react';
+
+const AngelFireSPA = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [guestbookEntries, setGuestbookEntries] = useState([
+    { name: 'CoolDude99', message: 'Awesome page! So flashy!' },
+    { name: 'WebSurfer2000', message: 'OMG! This is like, totally rad!' }
+  ]);
+  const [newEntry, setNewEntry] = useState({ name: '', message: '' });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewEntry(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (newEntry.name && newEntry.message) {
+      setGuestbookEntries(prev => [...prev, newEntry]);
+      setNewEntry({ name: '', message: '' });
+    }
+  };
+
+  const RainbowHR = () => (
+    <div className="relative h-4 my-4 overflow-hidden">
+      <div className="absolute inset-0 animate-rainbow-slide">
+        <div className="h-full bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500"></div>
+      </div>
+    </div>
+  );
+
+  const AnimatedFlames = () => (
+    <div className="absolute top-0 left-0 w-full overflow-hidden" style={{ height: '60px' }}>
+      {[...Array(20)].map((_, i) => (
+        <Flame
+          key={i}
+          className="absolute text-orange-500 animate-flame"
+          style={{
+            left: `${i * 5}%`,
+            animationDelay: `${Math.random() * 2}s`,
+            opacity: 0.7,
+          }}
+        />
+      ))}
+    </div>
+  );
+
+  return (
+    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
+      <AnimatedFlames />
+      <header className="bg-blue-600 text-white p-4 text-center relative">
+        <h1 className="text-3xl font-bold mb-2 animate-pulse">🔥 Welcome to My EXTREME AngelFire Page! 🔥</h1>
+        <p className="text-sm">Best viewed with Netscape Navigator at 800x600 resolution!</p>
+        <img src="/api/placeholder/100/50" alt="Under Construction" className="absolute top-0 right-0 animate-bounce" />
+      </header>
+
+      <nav className="bg-yellow-400 p-2">
+        <ul className="flex justify-center space-x-4">
+          <li><a href="#home" className="text-blue-800 hover:underline animate-pulse">Home</a></li>
+          <li><a href="#about" className="text-blue-800 hover:underline animate-pulse">About Me</a></li>
+          <li><a href="#links" className="text-blue-800 hover:underline animate-pulse">Cool Links</a></li>
+          <li><a href="#guestbook" className="text-blue-800 hover:underline animate-pulse">Guestbook</a></li>
+        </ul>
+      </nav>
+
+      <RainbowHR />
+
+      <main className="container mx-auto p-4">
+        <section id="home" className="mb-8">
+          <h2 className="text-2xl font-bold mb-4 text-center animate-bounce">🚧 Welcome to my RADICAL homepage! 🚧</h2>
+          <div className="flex justify-center space-x-4 mb-4">
+            <img src="/api/placeholder/100/100" alt="Under Construction" className="animate-spin" />
+            <img src="/api/placeholder/100/100" alt="Under Construction" className="animate-bounce" />
+            <img src="/api/placeholder/100/100" alt="Under Construction" className="animate-pulse" />
+          </div>
+          <p className="text-center animate-pulse">This site is under EXTREME construction. Please check back later, dude!</p>
+        </section>
+
+        <RainbowHR />
+
+        <section id="about" className="mb-8">
+          <h2 className="text-2xl font-bold mb-4 animate-pulse">🎸 About Me 🎸</h2>
+          <p className="animate-bounce">Yo! I'm a totally rad web designer and I love creating EXTREME websites! This is my personal page where I share my awesome thoughts and killer interests!</p>
+        </section>
+
+        <RainbowHR />
+
+        <section id="links" className="mb-8">
+          <h2 className="text-2xl font-bold mb-4 animate-pulse">🔗 Cool Links 🔗</h2>
+          <ul className="list-disc list-inside animate-bounce">
+            <li><a href="#" className="text-blue-600 hover:underline">My friend's EXTREME page</a></li>
+            <li><a href="#" className="text-blue-600 hover:underline">Radical cat gifs</a></li>
+            <li><a href="#" className="text-blue-600 hover:underline">Free FLAMING text generator</a></li>
+          </ul>
+        </section>
+
+        <RainbowHR />
+
+        <section id="guestbook" className="mb-8">
+          <h2 className="text-2xl font-bold mb-4 animate-pulse">📖 Guestbook 📖</h2>
+          <div className="bg-gray-100 p-4 rounded-lg mb-4">
+            <h3 className="text-xl font-bold mb-2 animate-bounce">Sign my RADICAL guestbook!</h3>
+            <form onSubmit={handleSubmit} className="space-y-2">
+              <input
+                type="text"
+                name="name"
+                value={newEntry.name}
+                onChange={handleInputChange}
+                placeholder="Your AWESOME name"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+              <textarea
+                name="message"
+                value={newEntry.message}
+                onChange={handleInputChange}
+                placeholder="Your EXTREME message"
+                className="w-full p-2 border border-gray-300 rounded"
+                required
+              />
+              <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 animate-pulse">
+                <Send className="inline mr-2" />
+                Sign Guestbook
+              </button>
+            </form>
+          </div>
+          <div className="space-y-4">
+            {guestbookEntries.map((entry, index) => (
+              <div key={index} className="bg-yellow-100 p-4 rounded-lg animate-pulse">
+                <p className="font-bold">{entry.name} says:</p>
+                <p>{entry.message}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <RainbowHR />
+
+      <footer className="bg-blue-600 text-white p-4 text-center">
+        <p>© 2024 My EXTREME Website. All rights reserved.</p>
+        <p className="text-sm animate-pulse">This page has been visited by <span className="font-bold">1,337</span> rad surfers!</p>
+        <button
+          onClick={() => setIsDarkMode(!isDarkMode)}
+          className="mt-2 bg-yellow-400 text-blue-800 px-4 py-2 rounded hover:bg-yellow-300 animate-bounce"
+        >
+          {isDarkMode ? <Sun className="inline mr-2" /> : <Moon className="inline mr-2" />}
+          Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
+        </button>
+      </footer>
+
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <Cat
+            key={i}
+            className={`absolute ${isDarkMode ? 'text-yellow-300' : 'text-blue-300'} animate-float`}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              transform: `rotate(${Math.random() * 360}deg)`,
+              animationDuration: `${Math.random() * 10 + 5}s`,
+              opacity: 0.5,
+            }}
+          />
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes rainbow-slide {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        @keyframes flame {
+          0%, 100% { transform: scale(1) translateY(0); }
+          50% { transform: scale(1.1) translateY(-10px); }
+        }
+        .animate-rainbow-slide {
+          animation: rainbow-slide 2s linear infinite;
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        .animate-flame {
+          animation: flame 1.5s ease-in-out infinite;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default AngelFireSPA;
